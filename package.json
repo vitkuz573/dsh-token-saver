@@ -1,0 +1,35 @@
+{
+  "name": "@local/dsh-token-saver",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "One Settings page that turns the harness's token-saving machinery on and off, plus a peak-hour guard over model requests.",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "icon.svg",
+    "locale/*.json"
+  ],
+  "icon": "./icon.svg",
+  "scripts": {
+    "test": "node test/pricing.test.mjs && node test/guard-ui.test.mjs"
+  },
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-settings-general",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-api-remotes"
+      ]
+    }
+  }
+}

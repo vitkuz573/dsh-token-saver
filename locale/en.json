@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Token saver",
+    "description": "One Settings page that turns the harness's token-saving machinery on and off: tool-result pruning, the bounded tool-output budget, manual and automatic compaction, and image offload."
+  }
+}

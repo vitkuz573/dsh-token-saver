@@ -1,0 +1,39 @@
+# Token saver bundle layer. The Host row carries the peak-hour guard: it refuses
+# every model request proposed during peak-rate hours through the
+# `agent/pre-step` waterfall, and registers `/peak-allow`, `/peak-block`, and
+# `/peak-guard` as the user's authority over that refusal. The renderable half is
+# the `dsh.client` artifact (./client.js), which registers the Settings page and
+# the savings strip that shows and steers the same policy.
+#
+# `enabled: true` arms the guard from activation, which is what this deployment
+# asked for; `/peak-guard off` disarms it at runtime. An override granted by
+# `/peak-allow` lives in Host memory only, so a restart drops it.
+- insert:
+    - id: token-saver
+      name: '@local/dsh-token-saver'
+      config:
+        enabled: true
+        overrideMinutes: 15
+        maxOverrideMinutes: 720
+
+# Condensation budgets for the token-saving chain.
+#
+# Shipped defaults assume a conversation that really fills the window:
+# `thresholdRatio` 0.8 starts condensation at 80% of the routed capacity, and
+# `retainRatio` 0.16 keeps 16% of it verbatim. This deployment routes
+# `deepseek-flash` with `contextWindow: 1000000`, so those defaults put the
+# trigger near 800,000 tokens and the verbatim tail near 160,000 — far above any
+# session here, which leaves both automatic condensation and the tool-result
+# pruner that rides its compaction path inert.
+#
+# These values move the trigger to 12% of the window (~120,000 tokens), keep an
+# absolute 30,000-token tail verbatim instead of a window fraction, and cap one
+# summary at 8,192 tokens: without that cap the summary budget follows
+# `headroomTokens` (65,536) and would swallow most of the reduction it produces.
+# `retainTokens` must stay below the resolved trigger, which it does by 4x.
+- id: compaction-basic
+  name: '@deepseek-ai/dsh-compaction-basic'
+  config:
+    thresholdRatio: 0.12
+    retainTokens: 30000
+    maxTokens: 8192

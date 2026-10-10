@@ -1,0 +1,77 @@
+name: Bug report
+description: Something in the guard, the strip, or the settings page behaves wrong.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. The guard, the strip, and the settings page are
+        separate halves — please say which one misbehaved.
+
+  - type: input
+    id: dsh-version
+    attributes:
+      label: DSH version
+      description: Output of `dsh --version`
+      placeholder: 0.2.0-rc.2
+    validations:
+      required: true
+
+  - type: input
+    id: install-spec
+    attributes:
+      label: How the plugin is installed
+      description: The exact spec you used, including the profile.
+      placeholder: 'dsh plugin --profile web add link:/path/to/token-saver'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Peak guard (host)
+        - Cost strip (browser)
+        - Settings page (browser)
+        - Session cost pricing
+        - Install / load
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: guard-status
+    attributes:
+      label: Guard state at the time
+      description: Output of `/peak-guard status`, plus whether an override was active.
+      render: text
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened instead
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: |
+        `~/.dsh/profiles/<profile>/.plugin-manager/logs/` for install problems,
+        or the browser console for client problems.
+      render: shell
+    validations:
+      required: false

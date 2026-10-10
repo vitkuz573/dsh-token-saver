@@ -1,0 +1,51 @@
+name: Feature request
+description: Suggest a change to the guard, the strip, or the settings page.
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the situation, not the solution.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Which half is affected — host, strip, or settings page?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: half
+    attributes:
+      label: Half affected
+      options:
+        - Peak guard (host)
+        - Cost strip (browser)
+        - Settings page (browser)
+        - Both halves
+    validations:
+      required: true
+
+  - type: textarea
+    id: schedule
+    attributes:
+      label: Does this change the rate schedule or the guard policy?
+      description: |
+        The schedule currently models two weekday UTC windows:
+        01:00–04:00 and 06:00–10:00. Overrides are commands, never tools, so
+        that stays true for any new control.
+      render: text
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+    validations:
+      required: false

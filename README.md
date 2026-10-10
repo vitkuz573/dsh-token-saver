@@ -9,6 +9,29 @@ Two halves of one DSH bundle:
   harness's token-saving machinery on and off, plus the savings strip under the
   composer that prices the session and steers the guard.
 
+## Install
+
+```sh
+dsh plugin --profile web add github:vitkuz573/dsh-token-saver
+dsh web
+```
+
+Restart the host process afterwards: host code is not hot-reloaded, so an edit
+to `index.js` only takes effect on a restart. Client-only changes appear on the
+next page load.
+
+## Compatibility
+
+Built against DSH `0.2.0-rc.2`. The bundle declares its own patch, so DSH's
+installer refuses it on a runtime whose API does not match — that refusal is the
+intended behaviour, not a bug to work around with `allow-version`.
+
+The rate schedule follows
+[DeepSeek's published pricing](https://api-docs.deepseek.com/quick_start/pricing):
+peak is 01:00–04:00 and 06:00–10:00 UTC, Monday to Friday. Chinese public
+holidays are **not** modelled, so those days are refused even though DeepSeek
+bills them off-peak.
+
 ## What the guard does
 
 A turn that is already running is not torn apart: it finishes the step it is in

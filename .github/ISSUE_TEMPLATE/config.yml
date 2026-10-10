@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: DeepSeek rate schedule
+    url: https://api-docs.deepseek.com/quick_start/pricing
+    about: Source of truth for peak hours and peak pricing. Confirm here before opening a schedule bug.
+  - name: DSH documentation
+    url: https://deepseek-harness.github.io/deepseek-harness/
+    about: Harness guides, plugin model, and compatibility notes.
